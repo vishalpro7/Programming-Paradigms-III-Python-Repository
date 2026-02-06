@@ -1,0 +1,166 @@
+# Initial books dictionary
+books = {
+    101: {"title": "Physics", "author": "Einstein", "available_copies": 5},
+    102: {"title": "Chemistry", "author": "Curie", "available_copies": 3},
+    103: {"title": "Mathematics", "author": "Newton", "available_copies": 4}
+}
+
+# 1. Backup current books
+backup_books = books.copy()
+
+# 2. Initialize new categories with count 0
+categories = dict.fromkeys(["Science", "Arts", "Engineering"], 0)
+
+# 3. Safely retrieve available copies
+book_id = 102
+copies = books.get(book_id, {}).get("available_copies", 0)
+print(f"Book {book_id} has {copies} copies")
+
+# 4. Display all book IDs with details
+for bid, details in books.items():
+    print(f"Book ID: {bid}, Details: {details}")
+
+# 5. Extract only book IDs and only available copies
+book_ids = list(books.keys())
+available_copies = [details["available_copies"] for details in books.values()]
+
+# 6. Remove a permanently discarded book
+books.pop(103)
+
+# 7. Remove most recently added book
+books.popitem()
+
+# 8. Add missing category safely
+categories.setdefault("Mathematics", 0)
+
+# 9. Merge newly received shipment
+new_books = {
+    104: {"title": "Biology", "author": "Darwin", "available_copies": 6},
+    105: {"title": "History", "author": "Herodotus", "available_copies": 2}
+}
+books.update(new_books)
+
+# 10. Clear all records at end of year
+books.clear()
+categories.clear()
+
+
+
+
+# Initial sets
+registered_students = {101, 102, 103, 104}
+workshop_A = {101, 103}
+workshop_B = {102, 104}
+volunteers = {101, 105}
+
+# 1. Add new student registration dynamically
+registered_students.add(105)
+
+# 2. Safe backup
+backup_registered = registered_students.copy()
+
+# 3. Registered but didn't attend Workshop A
+not_in_A = registered_students.difference(workshop_A)
+
+# 4. Remove cancelled students
+registered_students.difference_update({104})
+
+# 5. Safe remove without error
+registered_students.discard(999)
+
+# 6. Check if workshops have no common students
+disjoint_check = workshop_A.isdisjoint(workshop_B)
+
+# 7. All volunteers registered?
+all_volunteers_registered = volunteers.issubset(registered_students)
+
+# 8. Students who attended at least one workshop
+all_workshop_students = workshop_A.union(workshop_B)
+
+# 9. Keep only common attendees
+workshop_A.intersection_update(workshop_B)
+
+# 10. Remove random volunteer
+removed_volunteer = volunteers.pop()
+
+# 11. Immutable final groups
+final_groups = frozenset({101, 102, 103})
+
+# 12. Students in only one workshop
+only_one_workshop = workshop_A.symmetric_difference(workshop_B)
+
+# 13. Merge all workshops
+all_participants = workshop_A.union(workshop_B)
+
+# 14. Clear all temporary data
+registered_students.clear()
+workshop_A.clear()
+workshop_B.clear()
+volunteers.clear()
+
+
+
+
+# Q3: Vowel counting function (case-insensitive)
+def count_vowels(text):
+    vowels = "aeiouAEIOU"
+    return sum(1 for char in text if char in vowels)
+
+# Test vowel function
+test_strings = ["Hello World", "Python Programming", "SREC College"]
+for text in test_strings:
+    vowel_count = count_vowels(text)
+    print(f"'{text}' → {vowel_count} vowels")
+
+# Q4: Student grading system
+def calculate_average(marks):
+    return sum(marks) / len(marks)
+
+students = {
+    "Anu": [78, 85, 90],
+    "Bala": [60, 72, 68],
+    "Charan": [88, 91, 84],
+    "Divya": [45, 50, 40]
+}
+
+results = {}
+for name, marks in students.items():
+    avg = round(calculate_average(marks), 2)
+    status = "Pass" if avg >= 50 else "Fail"
+    results[name] = {"average": avg, "result": status}
+
+# Print only passed students
+print("PASSED STUDENTS:")
+passed_count = 0
+for name, data in results.items():
+    if data["result"] == "Pass":
+        print(f"  {name}: {data['average']} - {data['result']}")
+        passed_count += 1
+
+# Find topper using lambda
+topper = max(results.items(), key=lambda x: x[1]["average"])
+print(f"\nTopper: {topper[0]} (Average: {topper[1]['average']})")
+print(f"Total passed: {passed_count}/{len(students)} students")
+
+# Q5: Recursive functions for digit analysis
+def count_digits(n):
+    if n == 0:
+        return 0
+    return 1 + count_digits(n // 10)
+
+def sum_digits(n):
+    if n == 0:
+        return 0
+    return (n % 10) + sum_digits(n // 10)
+
+# Test recursive digit functions
+numbers = [12345, 908, 0]
+for num in numbers:
+    print(f"\nNumber: {num}")
+    print(f"  Count of digits: {count_digits(num)}")
+    print(f"  Sum of digits: {sum_digits(num)}")
+
+
+
+
+
